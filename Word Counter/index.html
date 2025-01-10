@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >WORD COUNTER</title>
+    <link rel="stylesheet" href="word.css">
+</head>
+<body>
+   <div class="center-content">
+    <h1 class="title">Word Counter</h1>
+  <textarea class="but2" id="textArea" rows="2" cols="50"></textarea>
+  <br><br><br>
+  <button class="but3" id="analyzeButton">COUNT</button>
+  <button class="but3" id="resetButton">RESET</button>
+</div>
+<div class="count">
+<h2 class="but1" id="wordCount">Number of words are :___</button></h2>
+<h2 class="but1" id="paragraphCount" >Number of sentences are :___</h2>
+<h2 class="but1" id="sentenceCount" >Number of paragraphs are :___</h2>
+</div>
+<script>
+    document.getElementById('analyzeButton').addEventListener('click', function() 
+    {
+      var text = document.getElementById('textArea').value;
+      var wordCount = countWords(text);
+      var paragraphCount = countParagraphs(text);
+      var sentenceCount = countSentences(text);
+      document.getElementById('wordCount').textContent = 'Number of words are :'+ wordCount;
+      document.getElementById('paragraphCount').textContent = 'Number of sentences are :'+ 
+      sentenceCount;
+      document.getElementById('sentenceCount').textContent = 'Number of paragraphs are :'+ 
+      paragraphCount;
+    });
+
+    document.getElementById('resetButton').addEventListener('click', function() 
+    {
+      document.getElementById('textArea').value = '';
+      document.getElementById('wordCount').textContent = 'Number of words are :___';
+      document.getElementById('paragraphCount').textContent = 'Number of sentences are :___';
+      document.getElementById('sentenceCount').textContent = 'Number of paragraphs are :___';
+    });
+
+    function countWords(text){
+      text = text.trim();
+      var words = text.split(/\s+/);
+      words = words.filter(function(word) {
+        return word.length > 0;
+      });
+      return words.length;
+    }
+
+    function countSentences(text) {
+      var sentences = text.match(/[^.!?]+[.!?]+(\s|$)/g);
+      return sentences ? sentences.length : 0;
+    }
+
+    function countParagraphs(text) {
+      var paragraphs = text.split(/\n+/);
+      paragraphs = paragraphs.filter(function(paragraph) {
+        return paragraph.trim().length > 0;
+      });
+      return paragraphs.length;
+    }
+  </script>
+</body>
+</html>
